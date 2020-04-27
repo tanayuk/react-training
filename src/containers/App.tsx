@@ -1,7 +1,7 @@
 import classes from "./App.module.css";
 import React, { Component } from "react";
-import Person from "./Person/Person";
-import ErrorBoundary from "./ErrorBoundary/ErrorBoundary";
+import Persons from "../components/Persons/Persons";
+import Cockpit from "../components/Cockpit/Cockpit";
 
 interface ButtonProps {
   readonly alt: boolean;
@@ -51,44 +51,21 @@ class App extends Component {
     let btnClass = [classes.Button];
     if (this.state.showPersons) {
       persons = (
-        <div>
-          {this.state.persons.map((person, index) => {
-            return (
-              <ErrorBoundary key={person.id}>
-                <Person
-                  name={person.name}
-                  age={person.age}
-                  click={() => this.deletePersonHandler(index)}
-                  changed={(event: React.FormEvent<HTMLInputElement>) =>
-                    this.nameChangeHandler(event, person.id)
-                  }
-                />
-              </ErrorBoundary>
-            );
-          })}
-        </div>
+        <Persons
+          persons={this.state.persons}
+          clicked={this.deletePersonHandler}
+          changed={this.nameChangeHandler}
+        />
       );
       btnClass.push(classes.Red);
     }
-
-    const assignedClasses = [];
-    if (this.state.persons.length <= 2) {
-      assignedClasses.push("red");
-    }
-    if (this.state.persons.length <= 1) {
-      assignedClasses.push("bold");
-    }
-
     return (
       <div className={classes.App}>
-        <h1>Hi I'm a react app</h1>
-        <p className={assignedClasses.join(" ")}>This is really working</p>
-        <button
-          className={btnClass.join(" ")}
-          onClick={this.togglePersonsHandler}
-        >
-          Switch Name
-        </button>
+        <Cockpit
+          showPersons={this.state.showPersons}
+          persons={this.state.persons}
+          clicked={this.togglePersonsHandler}
+        />
         {persons}
       </div>
     );
