@@ -51,11 +51,13 @@ class App extends Component {
     let btnClass = [classes.Button];
     if (this.state.showPersons) {
       persons = (
-        <Persons
-          persons={this.state.persons}
-          clicked={this.deletePersonHandler}
-          changed={this.nameChangeHandler}
-        />
+        <>
+          <Persons
+            persons={this.state.persons}
+            clicked={this.deletePersonHandler}
+            changed={this.nameChangeHandler}
+          />
+        </>
       );
       btnClass.push(classes.Red);
     }

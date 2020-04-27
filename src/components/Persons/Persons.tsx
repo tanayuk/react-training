@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, { Component, Fragment } from "react";
 import Person from "./Person/Person";
 
 interface PersonsProps {
@@ -7,22 +7,21 @@ interface PersonsProps {
   changed?: any;
 }
 
-class Persons extends Component<PersonsProps> {
-  render(){
-    this.props.persons.map((person: any, index: number) => {
+const persons: any = (props: PersonsProps) => {
+  return props.persons.map((person: any, index: number) => {
     return (
-      <div>
+      <Fragment>
         <Person
           name={person.name}
           age={person.age}
-          click={() => this.props.clicked(index)}
+          click={() => props.clicked(index)}
           changed={(event: React.FormEvent<HTMLInputElement>) =>
-            this.props.changed(event, person.id)
+            props.changed(event, person.id)
           }
         />
-      </div>
-    )}}
-    
-}
+      </Fragment>
+    );
+  });
+};
 
-export default Persons;
+export default persons;
