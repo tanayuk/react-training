@@ -1,4 +1,4 @@
-import "./App.css";
+import classes from "./App.module.css";
 import React, { Component } from "react";
 import Person from "./Person/Person";
 
@@ -47,6 +47,7 @@ class App extends Component {
 
   render() {
     let persons = null;
+    let btnClass = [classes.Button];
     if (this.state.showPersons) {
       persons = (
         <div>
@@ -65,21 +66,27 @@ class App extends Component {
           })}
         </div>
       );
+      btnClass.push(classes.Red);
     }
 
-    const classes = [];
+    const assignedClasses = [];
     if (this.state.persons.length <= 2) {
-      classes.push("red");
+      assignedClasses.push("red");
     }
     if (this.state.persons.length <= 1) {
-      classes.push("bold");
+      assignedClasses.push("bold");
     }
 
     return (
-      <div className="App">
+      <div className={classes.App}>
         <h1>Hi I'm a react app</h1>
-        <p className={classes.join(" ")}>This is really working</p>
-        <button onClick={this.togglePersonsHandler}>Switch Name</button>
+        <p className={assignedClasses.join(" ")}>This is really working</p>
+        <button
+          className={btnClass.join(" ")}
+          onClick={this.togglePersonsHandler}
+        >
+          Switch Name
+        </button>
         {persons}
       </div>
     );
