@@ -1,6 +1,7 @@
 import classes from "./App.module.css";
 import React, { Component } from "react";
 import Person from "./Person/Person";
+import ErrorBoundary from "./ErrorBoundary/ErrorBoundary";
 
 interface ButtonProps {
   readonly alt: boolean;
@@ -53,15 +54,16 @@ class App extends Component {
         <div>
           {this.state.persons.map((person, index) => {
             return (
-              <Person
-                name={person.name}
-                age={person.age}
-                click={() => this.deletePersonHandler(index)}
-                key={person.id}
-                changed={(event: React.FormEvent<HTMLInputElement>) =>
-                  this.nameChangeHandler(event, person.id)
-                }
-              />
+              <ErrorBoundary key={person.id}>
+                <Person
+                  name={person.name}
+                  age={person.age}
+                  click={() => this.deletePersonHandler(index)}
+                  changed={(event: React.FormEvent<HTMLInputElement>) =>
+                    this.nameChangeHandler(event, person.id)
+                  }
+                />
+              </ErrorBoundary>
             );
           })}
         </div>
