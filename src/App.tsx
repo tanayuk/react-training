@@ -1,7 +1,6 @@
 import "./App.css";
 import React, { Component } from "react";
 import Person from "./Person/Person";
-import Radium from "radium";
 
 class App extends Component {
   state = {
@@ -11,19 +10,6 @@ class App extends Component {
       { id: "adlksjfk", name: "Hisae", age: 35 },
     ],
     showPersons: false,
-  };
-
-  style = {
-    backgroundColor: "green",
-    color: "white",
-    font: "inherit",
-    border: "1px solid blue",
-    padding: "8px",
-    cursor: "pointer",
-    ":hover": {
-      backgroundColor: "lightgreen",
-      color: "black",
-    },
   };
 
   nameChangeHandler = (
@@ -56,6 +42,15 @@ class App extends Component {
   };
 
   render() {
+    let style = {
+      backgroundColor: "green",
+      color: "white",
+      font: "inherit",
+      border: "1px solid blue",
+      padding: "8px",
+      cursor: "pointer",
+    };
+
     let persons = null;
     if (this.state.showPersons) {
       persons = (
@@ -75,6 +70,7 @@ class App extends Component {
           })}
         </div>
       );
+      style.backgroundColor = "red";
     }
 
     const classes = [];
@@ -89,7 +85,7 @@ class App extends Component {
       <div className="App">
         <h1>Hi I'm a react app</h1>
         <p className={classes.join(" ")}>This is really working</p>
-        <button style={this.style} onClick={this.togglePersonsHandler}>
+        <button style={style} onClick={this.togglePersonsHandler}>
           Switch Name
         </button>
         {persons}
@@ -98,4 +94,4 @@ class App extends Component {
   }
 }
 
-export default Radium(App);
+export default App;
