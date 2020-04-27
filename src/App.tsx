@@ -1,6 +1,24 @@
 import "./App.css";
 import React, { Component } from "react";
+import styled from "styled-components";
 import Person from "./Person/Person";
+
+interface ButtonProps {
+  readonly alt: boolean;
+}
+
+const StyledButton = styled.button<ButtonProps>`
+  background-color: ${(props) => (props.alt ? "red" : "green")};
+  color: white;
+  font: inherit;
+  border: 1px solid blue;
+  padding: 8px;
+  cursor: pointer;
+  &:hover {
+    background-color: ${(props) => (props.alt ? "salmon" : "lightgreen")};
+    color: black;
+  }
+`;
 
 class App extends Component {
   state = {
@@ -42,15 +60,6 @@ class App extends Component {
   };
 
   render() {
-    let style = {
-      backgroundColor: "green",
-      color: "white",
-      font: "inherit",
-      border: "1px solid blue",
-      padding: "8px",
-      cursor: "pointer",
-    };
-
     let persons = null;
     if (this.state.showPersons) {
       persons = (
@@ -70,7 +79,6 @@ class App extends Component {
           })}
         </div>
       );
-      style.backgroundColor = "red";
     }
 
     const classes = [];
@@ -85,9 +93,12 @@ class App extends Component {
       <div className="App">
         <h1>Hi I'm a react app</h1>
         <p className={classes.join(" ")}>This is really working</p>
-        <button style={style} onClick={this.togglePersonsHandler}>
+        <StyledButton
+          alt={this.state.showPersons}
+          onClick={this.togglePersonsHandler}
+        >
           Switch Name
-        </button>
+        </StyledButton>
         {persons}
       </div>
     );
